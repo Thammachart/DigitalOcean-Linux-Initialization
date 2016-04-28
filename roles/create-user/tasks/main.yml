@@ -1,0 +1,12 @@
+- name: Create the custom user with wheel group
+  user: name={{username}} password={{password}} groups={{group}} append=true
+  register: userValue
+  when: ansible_user == "root"
+
+- name: Create .ssh directory
+  file: path=/home/{{username}}/.ssh state=directory mode="0700" owner={{username}} group={{username}}
+  when: userValue.changed == true
+
+- name: Copy authorized_keys to new user
+  copy: remote_src=true src=/root/.ssh/authorized_keys dest=/home/{{username}}/.ssh/authorized_keys mode="0600" owner={{username}} group={{username}}
+  when: userValue.changed == true

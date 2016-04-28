@@ -1,0 +1,13 @@
+- name: Try connecting with the custom user
+  shell: ssh {{username}}@{{ansible_host}} -p {{ansible_port}} -oBatchMode=yes echo success
+  delegate_to: localhost
+  register: customUserValue
+  ignore_errors: true
+
+- name: Set the ansible_user to custom user
+  set_fact: ansible_user={{username}}
+  when: customUserValue.stdout.find("success") != -1
+
+- name: Change back to the root user when things not right
+  set_fact: ansible_user=root
+  when: customUserValue.stdout.find("success") == -1

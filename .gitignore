@@ -1,2 +1,5 @@
 hosts
-group_vars
+group_vars/*/*
+*.retry
+*/*/vars/*
+!*.example
