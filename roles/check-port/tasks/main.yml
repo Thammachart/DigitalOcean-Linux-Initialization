@@ -1,0 +1,20 @@
+- name: SSH default port testing
+  wait_for: port=22 timeout=5 host={{ansible_host}}
+  register: default_ssh_port
+  delegate_to: "localhost"
+  ignore_errors: true
+
+- name: Set ansible_port to default
+  set_fact: ansible_port=22
+  when: default_ssh_port.state is defined and default_ssh_port.state == "started"
+
+- name: SSH custom port testing
+  wait_for: port={{custom_port}} timeout=5 host={{ansible_host}}
+  register: custom_ssh_port
+  delegate_to: "localhost"
+  ignore_errors: true
+  when: default_ssh_port.state is undefined
+
+- name: Set ansible_port to custom
+  set_fact: ansible_port={{custom_port}}
+  when: default_ssh_port.state is undefined and custom_ssh_port.state == "started"
