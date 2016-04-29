@@ -4,7 +4,7 @@
   register: customUserValue
   ignore_errors: true
 
-- name: Set the ansible_user to custom user
+- name: Set ansible_user to custom user
   set_fact: ansible_user={{username}}
   when: customUserValue.stdout.find("success") != -1
 

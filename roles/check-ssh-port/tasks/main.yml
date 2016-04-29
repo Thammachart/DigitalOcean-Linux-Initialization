@@ -1,13 +1,13 @@
-- name: SSH custom port testing
+- name: Try connecting with SSH custom port
   wait_for: port={{custom_port}} timeout=5 host={{ansible_host}}
   delegate_to: "localhost"
-  register: custom_ssh_port
+  register: customPortValue
   ignore_errors: true
 
 - name: Set ansible_port to custom
   set_fact: ansible_port={{custom_port}}
-  when: custom_ssh_port.state is defined and custom_ssh_port.state == "started"
+  when: customPortValue.state is defined and customPortValue.state == "started"
 
-- name: Set ansible_port to default when things not right
+- name: Change back to the default port when things not right
   set_fact: ansible_port=22
-  when: custom_ssh_port.state is undefined
+  when: customPortValue.state is undefined
