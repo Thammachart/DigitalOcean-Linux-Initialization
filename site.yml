@@ -2,6 +2,6 @@
   gather_facts: false
   roles:
       - check-ssh-port
-      - change-ssh-port
       - check-user
+      - change-ssh-port
       - create-user
