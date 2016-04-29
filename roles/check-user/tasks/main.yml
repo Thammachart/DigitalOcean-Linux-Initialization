@@ -1,6 +1,6 @@
 - name: Try connecting with the custom user
   shell: ssh {{username}}@{{ansible_host}} -p {{ansible_port}} -oBatchMode=yes echo success
-  delegate_to: localhost
+  delegate_to: "localhost"
   register: customUserValue
   ignore_errors: true
 

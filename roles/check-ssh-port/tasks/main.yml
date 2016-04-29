@@ -1,7 +1,7 @@
 - name: SSH custom port testing
   wait_for: port={{custom_port}} timeout=5 host={{ansible_host}}
-  register: custom_ssh_port
   delegate_to: "localhost"
+  register: custom_ssh_port
   ignore_errors: true
 
 - name: Set ansible_port to custom
