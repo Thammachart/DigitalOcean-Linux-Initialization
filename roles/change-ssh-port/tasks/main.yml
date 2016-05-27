@@ -1,5 +1,7 @@
 - name: Setup the custom SSH port (if default port presented)
+  become: true
+  become_method: sudo
   lineinfile: dest=/etc/ssh/sshd_config regexp="^Port" line="Port {{custom_port}}"
-  when: ansible_port == 22
+  when: ansible_port == '22'
   notify:
       - restart sshd
