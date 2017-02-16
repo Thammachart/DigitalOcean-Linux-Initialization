@@ -1,5 +1,5 @@
-- name: Create the custom user with wheel group
-  user: name={{username}} password={{password}} groups={{group}} append=true
+- name: Create the custom user with {{groups}} group
+  user: name={{username}} password={{password}} groups={{groups}} shell=/bin/bash append=true
   register: userValue
   when: ansible_user == "root"
 
