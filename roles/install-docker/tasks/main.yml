@@ -1,0 +1,9 @@
+- name: Check whether docker is installed or not
+  command: dpkg -l docker
+  register: dockerInstallation
+
+- block:
+    - name: Install Docker
+      command: curl -sSL https://get.docker.com | sh
+
+  when: dockerInstallation.stdout.find("no packages found") != -1
