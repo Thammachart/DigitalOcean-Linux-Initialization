@@ -1,7 +1,7 @@
 custom_port: *custom_port*
 username: *custom_username*
 
-password: *cryptic custom_password* 
+password: *cryptic custom_password*
 # https://docs.ansible.com/ansible/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
 
-groups: *groups*
+groups: *selected_groups*
