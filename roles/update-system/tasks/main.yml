@@ -1,0 +1,12 @@
+- block:
+  - name: Update & Upgrade the System
+    apt:
+      update_cache: true
+      cache_valid_time: 3600
+      upgrade: dist
+      
+  - name: Install 'sudo' Package
+    apt:
+      name: sudo
+
+  when: ansible_user == "root"

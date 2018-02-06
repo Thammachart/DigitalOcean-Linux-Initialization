@@ -1,0 +1,21 @@
+- block:
+  - name: Disable SSH root Login
+    lineinfile: dest=/etc/ssh/sshd_config regexp="^{{item}}" line="{{item}} no"
+    with_items:
+      - PermitRootLogin
+      - PasswordAuthentication
+      - PermitEmptyPasswords
+
+  - name: Disable Root Account
+    command: passwd -d root
+
+  - name: Lock Root Account
+    command: passwd -l root
+    notify: restart sshd
+
+  - meta: flush_handlers
+
+  - name: Set fact ansible_user to custom
+    set_fact: ansible_user={{username}}
+
+  when: ansible_user == "root"
